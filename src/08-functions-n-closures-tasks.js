@@ -23,8 +23,10 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-function getComposition(/* f, g */) {
-  throw new Error('Not implemented');
+function getComposition(f, g) {
+  return function result(x) {
+    return f(g(x));
+  };
 }
 
 
@@ -44,8 +46,14 @@ function getComposition(/* f, g */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  function power(a, b) {
+    return b ** a;
+  }
+  const bound = power.bind(null, exponent);
+  return function result(x) {
+    return bound(x);
+  };
 }
 
 
@@ -62,8 +70,20 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  if (!args) return null;
+  let x2; let x1; let
+    d;
+  if (args.length === 3) {
+    [x2, x1, d] = [args[0], args[1], args[2]];
+  } else if (args.length === 2) {
+    [x2, x1, d] = [0, args[0], args[1]];
+  } else if (args.length === 1) {
+    [x2, x1, d] = [0, 0, args[0]];
+  }
+  return function result(x) {
+    return x2 * (x ** 2) + x1 * x + d;
+  };
 }
 
 
@@ -81,8 +101,17 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  let numberOfCalls = 0;
+  let previous;
+  return function memoizer() {
+    if (!numberOfCalls) {
+      previous = func();
+      numberOfCalls += 1;
+      return previous;
+    }
+    return previous;
+  };
 }
 
 
@@ -103,6 +132,21 @@ function memoize(/* func */) {
  */
 function retry(/* func, attempts */) {
   throw new Error('Not implemented');
+  // console.log(func.toString());
+  // console.log(attempts);
+  // let Ate
+  // let counter=attempts;
+  // return function retryer(){
+  //   let result= func();
+  //   con
+  //   console.log(result)
+  //   if(result) {
+  //     while(counter){
+  //       counter-=1;
+  //       func()
+  //     }
+  //   }
+  // }
 }
 
 
